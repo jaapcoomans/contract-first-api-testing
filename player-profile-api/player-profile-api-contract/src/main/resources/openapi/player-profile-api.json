@@ -61,6 +61,25 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Player profile not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "PlayerNotFoundView",
+                  "type": "object",
+                  "properties": {
+                    "errorCode": {
+                      "type": "string"
+                    },
+                    "playerId": {
+                      "$ref": "#/components/schemas/PlayerId"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
