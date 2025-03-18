@@ -7,6 +7,7 @@ import nl.jaapcoomans.demo.api.model.PlayerProfileView;
 import nl.jaapcoomans.demo.api.model.SelectOpponentCommand;
 import nl.jaapcoomans.demo.api.model.SelectedOpponentView;
 import nl.jaapcoomans.demo.playerprofile.domain.PlayerProfile;
+import nl.jaapcoomans.demo.playerprofile.domain.PlayerProfileNotFound;
 import nl.jaapcoomans.demo.playerprofile.domain.PlayerProfileService;
 import nl.jaapcoomans.demo.playerprofile.domain.SkillLevel;
 
@@ -21,6 +22,10 @@ public class PlayerProfileController implements PlayersApi {
     @Override
     public PlayerProfileView getPlayerProfile(String playerId) {
         var playerProfile = playerProfileService.getPlayerProfile(playerId);
+        if (playerProfile == null) {
+            throw new PlayerProfileNotFound(playerId);
+        }
+
         return toView(playerProfile);
     }
 
