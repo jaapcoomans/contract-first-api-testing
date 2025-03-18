@@ -1,0 +1,144 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Player Profile API",
+    "version": "1.0"
+  },
+  "paths": {
+    "/players/{playerId}": {
+      "get": {
+        "operationId": "getPlayerProfile",
+        "parameters": [
+          {
+            "name": "playerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/PlayerId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Player profile",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "PlayerProfileView",
+                  "type": "object",
+                  "properties": {
+                    "playerId": {
+                      "$ref": "#/components/schemas/PlayerId"
+                    },
+                    "name": {
+                      "type": "string",
+                      "minLength": 5
+                    },
+                    "favouriteGames": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "skillLevel": {
+                      "$ref": "#/components/schemas/SkillLevel"
+                    }
+                  },
+                  "required": [
+                    "playerId",
+                    "name",
+                    "favouriteGames"
+                  ]
+                },
+                "example": {
+                  "playerId": "123",
+                  "name": "Mary Meeple",
+                  "favouriteGames": [
+                    "Catan",
+                    "Carcasonne"
+                  ],
+                  "skillLevel": "Advanced"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/players/select-opponent": {
+      "post": {
+        "operationId": "selectOpponent",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "SelectOpponentCommand",
+                "type": "object",
+                "properties": {
+                  "boardGame": {
+                    "type": "string"
+                  },
+                  "skillLevel": {
+                    "$ref": "#/components/schemas/SkillLevel"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Opponent selected",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "SelectedOpponentView",
+                  "properties": {
+                    "playerId": {
+                      "$ref": "#/components/schemas/PlayerId"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "No matching opponent available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "NoMatchingOpponentFound",
+                  "properties": {
+                    "lowerSkillLevelAvailable": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PlayerId": {
+        "type": "string",
+        "minLength": 6,
+        "maxLength": 10
+      },
+      "SkillLevel": {
+        "type": "string",
+        "enum": [
+          "Beginner",
+          "Advanced",
+          "Expert"
+        ]
+      }
+    }
+  }
+}
