@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Contract-first API Testing with Quarkus</title>
+
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/conference-dark.css" id="theme">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/darcula-adjusted.css">
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <!-- title slide -->
+                <section data-transition="none">
+                    <div class="centered-content">
+                        <h1 class="title">Contract-first API Testing with Quarkus</h1>
+                        <h2>Jaap Coomans</h2>
+                    </div>
+                    <p style="position: absolute; left: 30px; bottom: 10px;">
+                        <img src="dist/images/restricted/bluesky-logo.png" style="height: 50px; display: inline; vertical-align: middle; padding-right: 20px" alt="BlueSky Logo"/>
+                        @jaapcoomans.nl
+                    </p>
+                    <div style="position: absolute; bottom: 30px; right: 30px;">
+                        <img src="dist/images/restricted/miniconf-logo-letters-yellow-transparant-200x108.png" alt="mini.CONF logo" style="height: 200px;"/>
+                        <img src="dist/images/restricted/group9_common_top_png.png" alt="group9 logo" style="height: 200px;"/>
+                    </div>
+                </section>
+
+                <section data-transition="none" data-background="dist/images/backgrounds/tangled-cables.jpg">
+                    <div class="cc-by-sa" >
+                        Author: Maja Kuzmanovic<br/>
+                        https://www.flickr.com/photos/deziluzija/29957944892
+                    </div>
+                </section>
+
+                <!-- About me -->
+                <section data-transition="none">
+                    <h1>about:me</h1>
+                    <p class="centered-content" style="line-height: 2.2em; font-size: 1.2em;">
+                        🏷️ Jaap Coomans<br/>
+                        🏠 Tilburg (The Netherlands)<br/>
+                        📅 Java since 2002<br/>
+                        🧑‍💻 Software Architect at group9<br/>
+                        🚩 Founder of BrabantJUG<br/>
+                        👨‍👩‍👧‍👧 Husband, Father of 2 girls<br/>
+                        🎲 Boardgame player<br/>
+                        🍺 Craft beer sampler
+                    </p>
+                    <p style="position: absolute; left: 30px; bottom: 10px;">
+                        <img src="dist/images/restricted/bluesky-logo.png" style="height: 50px; display: inline; vertical-align: middle; padding-right: 20px;" alt="BlueSky Logo"/>
+                        @jaapcoomans.nl
+                    </p>
+                    <div style="position: absolute; right: 150px; top: 100px;">
+                        <img src="dist/images/restricted/jaap-devoxx22-square.jpg" alt="Jaap Coomans" style="width: 400px; border-radius: 50%;"/>
+                    </div>
+                    <div style="position: absolute; bottom: 30px; right: 30px;">
+                        <img src="dist/images/restricted/brabantjug-logo.png" alt="BrabantJUG logo" style="height: 200px; padding-right: 50px;"/>
+                        <img src="dist/images/restricted/group9_common_top_png.png" alt="group9 logo" style="height: 200px;"/>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h1>API Terminology</h1>
+                    <div class="centered-content">
+                        <img src="dist/images/api-terminology-dark.svg" alt="API Terminology" style="height: 80vh;" class="theme-dark"/>
+                        <img src="dist/images/api-terminology-light.svg" alt="API Terminology" style="height: 80vh;" class="theme-light"/>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h1>De-facto API (no contract)</h1>
+                    <div class="centered-content">
+                        <img src="dist/images/de-facto-api-dark.svg" alt="De-facto API" style="height: 80vh;" class="theme-dark"/>
+                        <img src="dist/images/de-facto-api-light.svg" alt="De-facto API" style="height: 80vh;" class="theme-light"/>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h1>Test Pyramid - Mike Cohn</h1>
+                    <div class="centered-content">
+                        <img src="dist/images/test-pyramid-mike-cohn-dark.svg" alt="Test Pyramid" style="height: 80vh;" class="theme-dark"/>
+                        <img src="dist/images/test-pyramid-mike-cohn-light.svg" alt="Test Pyramid" style="height: 80vh;" class="theme-light"/>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h1>Test Pyramid - The essence</h1>
+                    <div class="centered-content">
+                        <img src="dist/images/test-pyramid-essence-dark.svg" alt="Test Pyramid" style="height: 80vh;" class="theme-dark"/>
+                        <img src="dist/images/test-pyramid-essence-light.svg" alt="Test Pyramid" style="height: 80vh;" class="theme-light"/>
+                    </div>
+                </section>
+                
+                <section data-transition="none" data-background="dist/images/backgrounds/divers-descending.jpg">
+                    <h1 class="huge centered-content">How low<br/>can we go?</h1>
+                    <div class="cc-by" >
+                        Author: Paul Asman / Jill Lenoble<br/>
+                        https://www.flickr.com/photos/pauljill/3476933358/
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h1>Contract-first</h1>
+                    <div class="centered-content">
+                        <img src="dist/images/contract-first-dark.svg" alt="Contract First" style="height: 80vh;"  class="theme-dark"/>
+                        <img src="dist/images/contract-first-light.svg" alt="Contract First" style="height: 80vh;"  class="theme-light"/>
+                    </div>
+                </section>
+                
+                <section data-transition="none">
+                    <h1>Our goals</h1>
+                    <div class="centered-content">
+                        <ul class="centered four-items">
+                            <li class="fragment fade-in-then-semi-out">Contract-first</li>
+                            <li class="fragment fade-in-then-semi-out">OpenAPI</li>
+                            <li class="fragment fade-in-then-semi-out">Existing tooling</li>
+                            <li class="fragment fade-in-then-semi-out">No dependency on live system</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section data-transition="none" data-background="dist/images/backgrounds/registry.jpg" data-background-opacity="0.7">
+                    <h1 class="centered-content huge">Do we need a registry?</h1>
+                    <div class="cc-by-sa" >
+                        Author: Carolina Prysyazhnyuk<br/>
+                        https://www.flickr.com/photos/129657698@N02/16159019626/
+                    </div>
+                </section>
+                
+                <section data-transition="none">
+                    <h1>Our registry</h1>
+                    <div class="centered-content">
+                        <img src="dist/images/restricted/Git-Logo-White.svg" alt="Maven" style="height: 15vh;" class="theme-dark"/>
+                        <img src="dist/images/restricted/Git-Logo-Black.svg" alt="Maven" style="height: 15vh;" class="theme-light"/><br/>
+                        <span style="font-size: 20vh;">+</span><br/>
+                        <img src="dist/images/restricted/maven-logo-white-on-black.purevec.svg" alt="Maven" style="height: 15vh;" class="theme-dark"/>
+                        <img src="dist/images/restricted/maven-logo-black-on-white.purevec.svg" alt="Maven" style="height: 15vh;" class="theme-light"/>
+                    </div>
+                </section>
+                
+                <section data-transition="none">
+                    <h1>OpenAPI Generator</h1>
+                    <div class="centered-content">
+                        <img src="dist/images/restricted/openapi-logo.png" style="height: 40vh;" alt="OpenAPI"/>
+                        <span style="font-size: 20vh; vertical-align: center;">&nbsp;+&nbsp;</span>
+                        <img src="dist/images/restricted/openapi-generator-logo.png" style="height: 40vh;" alt="OpenAPI Generator"/>
+                    </div>
+                </section>
+                
+                <section data-transition="none">
+                    <h1>Happy side effects</h1>
+                    <div class="centered-content">
+                        <ul class="centered two-items">
+                            <li class="fragment fade-in-then-semi-out">Decentral</li>
+                            <li class="fragment fade-in-then-semi-out">API Lifecycle</li>
+                            <li class="fragment fade-in-then-semi-out">Dependency management</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h1>Java-based Testing</h1>
+                    <div class="centered-content">
+                        <img src="dist/images/java-based-testing-dark.svg" alt="Java-based Testing" style="height: 80vh;" class="theme-dark"/>
+                        <img src="dist/images/java-based-testing-light.svg" alt="Java-based Testing" style="height: 80vh;" class="theme-light"/>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h1>Java-based Testing</h1>
+                    <div class="centered-content">
+                        <img src="dist/images/java-based-testing2-dark.svg" alt="Java-based Testing" style="height: 80vh;" class="theme-dark"/>
+                        <img src="dist/images/java-based-testing2-light.svg" alt="Java-based Testing" style="height: 80vh;" class="theme-light"/>
+                    </div>
+                </section>
+                
+                <section data-transition="none">
+                    <h1>REST-based Testing</h1>
+                    <div class="centered-content">
+                        <img src="dist/images/rest-based-testing-dark.svg" alt="REST-based Testing" style="height: 80vh;" class="theme-dark"/>
+                        <img src="dist/images/rest-based-testing-light.svg" alt="REST-based Testing" style="height: 80vh;" class="theme-light"/>
+                    </div>
+                </section>
+                
+                <section data-transition="none">
+                    <h1>Example of a provider test</h1>
+                    <div class="centered-content">
+                    <pre>
+                        <code class="language-java hljs large-code-sample" data-trim data-line-numbers="|1|6-7|11-15|17-19|21-25|3-4,24-25">
+                            @QuarkusTest
+                            public class PlayerProfileApiTest {
+                                private static final OpenApiContract apiContract = 
+                                            OpenApiContract.fromClasspath("openapi/player-profile-api.json");
+                            
+                                @InjectMock
+                                PlayerProfileService playerProfileService;
+                            
+                                @Test
+                                public void getPlayerProfile() {
+                                    // Given
+                                    var profile = aPlayerProfile();
+                                    var playerId = profile.playerId();
+                            
+                                    when(playerProfileService.getPlayerProfile(playerId)).thenReturn(profile);
+                            
+                                    // When
+                                    var response = given()
+                                            .get("/players/{playerId}", playerId);
+                            
+                                    // Then
+                                    response.then().statusCode(200);
+                            
+                                    var body = response.body().asString();
+                                    apiContract.assertThat(body).isValidResponseFor("getPlayerProfile", 200);
+                                }
+                            }
+                        </code>
+                    </pre>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h1>Example of a consumer test</h1>
+                    <div class="centered-content">
+                        <pre>
+                            <code class="language-java hljs " data-trim data-line-numbers="|1|2,4|6,7|11-17|11-25|27,28|30-32">
+                                @QuarkusTest
+                                @ConnectWireMock
+                                public class PlayerProfileApiClientTest {
+                                    WireMock wireMock;
+                                
+                                    @Inject
+                                    PlayerProfileRestClient playerProfileRestClient;
+                                
+                                    @Test
+                                    public void test() {
+                                        // Given
+                                        var responseBody = """
+                                                {
+                                                    "playerId": "123456",
+                                                    "name": "John Doe"
+                                                }
+                                                """;
+                                
+                                        wireMock.register(get(urlPathTemplate("/players/{playerId}"))
+                                                .withPathParam("playerId", equalTo("123456"))
+                                                .willReturn(aResponse()
+                                                        .withStatus(200)
+                                                        .withHeader("Content-Type", "application/json")
+                                                        .withBody(responseBody)
+                                                ));
+                                
+                                        // When
+                                        var player = playerProfileRestClient.getPlayerById("123456");
+                                
+                                        // Then
+                                        assertThat(player.getPlayerId()).isEqualTo("123456");
+                                        assertThat(player.getName()).isEqualTo("John Doe");
+                                    }
+                                }
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+                
+                <section data-transition="none">
+                    <h1 class="huge" style="margin-top: 10vh;">Thank you!</h1>
+                    <div style="position: absolute; bottom: 3vw; left: 3vw; text-align: left;">
+                        <h4>Reach out:</h4>
+                        <p>
+                            <img src="dist/images/restricted/bluesky-logo.png" style="width: 50px; display: inline; vertical-align: middle;" alt="Twitter Logo"/>&nbsp;
+                            @jaapcoomans.nl<br/>
+                            <img src="dist/images/restricted/mastodon-logo.png" style="width: 50px;  display: inline; vertical-align: middle;" alt="Mastodon Logo"/>&nbsp;
+                            @JaapCoomans@mastodon.online
+                        </p>
+                        <h4>Get the code:</h4>
+                        <p>
+                            <img src="dist/images/restricted/github-mark-white.svg" style="width: 50px; display: inline; vertical-align: middle;" alt="Github Logo" class="theme-dark"/>
+                            <img src="dist/images/restricted/github-mark.svg" style="width: 50px; display: inline; vertical-align: middle;" alt="Github Logo" class="theme-light"/>&nbsp;
+                            https://github.com/jaapcoomans/contract-first-api-testing
+                        </p>
+                    </div>
+                    <div style="position: absolute; bottom: 30px; right: 30px;">
+                        <img src="dist/images/restricted/miniconf-logo-letters-yellow-transparant-200x108.png" alt="mini.CONF logo" style="height: 200px;"/>
+                        <img src="dist/images/restricted/group9_common_top_png.png" alt="group9 logo" style="height: 200px;"/>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script src="plugin/menu/menu.js"></script>
+        <script>
+            // More info about initialization & config:
+            // - https://revealjs.com/initialization/
+            // - https://revealjs.com/config/
+            Reveal.initialize({
+                hash: true,
+
+                width: '100%',
+                height: '100%',
+                center: false,
+                backgroundTransition: 'none',
+
+                controls: false,
+                progress: false,
+                
+                menu: {
+                    side: `left`,
+                    openButton: false,
+                    themes: [
+                        { name: 'Dark', theme: 'dist/theme/conference-dark.css' },
+                        { name: 'Light', theme: 'dist/theme/conference-light.css' }
+                    ],
+                    themesPath: 'dist/theme/'
+                },
+
+                // Learn about plugins: https://revealjs.com/plugins/
+                plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMenu ]
+            });
+
+            document.addEventListener("DOMContentLoaded", function () {
+                function getActiveTheme() {
+                    const themeLink = document.querySelector('link#theme'); // Default theme link
+                    if (themeLink) {
+                        return themeLink.getAttribute('href').split('/').pop().replace('.css', ''); // Extract theme name
+                    }
+                    return null;
+                }
+
+                function updateImages() {
+                    const theme = getActiveTheme();
+                    const isDarkMode = theme === "conference-dark"; // Add more themes if needed
+
+                    document.querySelectorAll(".theme-light").forEach(img => img.style.display = isDarkMode ? "none" : "inline");
+                    document.querySelectorAll(".theme-dark").forEach(img => img.style.display = isDarkMode ? "inline" : "none");
+                }
+
+                // Observe changes in the <head> (theme changes)
+                const observer = new MutationObserver(updateImages);
+                observer.observe(document.head, { childList: true, subtree: true });
+
+                // Initial check on page load
+                updateImages();
+            });
+        </script>
+    </body>
+</html>

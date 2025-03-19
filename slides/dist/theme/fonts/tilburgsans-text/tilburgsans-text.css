@@ -1,0 +1,39 @@
+@font-face {
+    font-family: 'TilburgsAnsText';
+    src: url('./TilburgsAnsText-Regular.eot');
+    src: url('./TilburgsAnsText-Regular.eot?#iefix') format('embedded-opentype'),
+         url('./TilburgsAnsText-Regular.woff') format('woff'),
+         url('./TilburgsAnsText-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TilburgsAnsText';
+    src: url('./TilburgsAnsText-Bold.eot');
+    src: url('./TilburgsAnsText-Bold.eot?#iefix') format('embedded-opentype'),
+         url('./TilburgsAnsText-Bold.woff') format('woff'),
+         url('./TilburgsAnsText-Bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TilburgsAnsText';
+    src: url('./TilburgsAnsText-Italic.eot');
+    src: url('./TilburgsAnsText-Italic.eot?#iefix') format('embedded-opentype'),
+         url('./TilburgsAnsText-Italic.woff') format('woff'),
+         url('./TilburgsAnsText-Italic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'TilburgsAnsText';
+    src: url('./TilburgsAnsText-Light.eot');
+    src: url('./TilburgsAnsText-Light.eot?#iefix') format('embedded-opentype'),
+         url('./TilburgsAnsText-Light.woff') format('woff'),
+         url('./TilburgsAnsText-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+}

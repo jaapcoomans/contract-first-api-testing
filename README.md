@@ -1,10 +1,20 @@
 # Contract-first API Testing with Quarkus
 
-This repository contains the demo project for my talk "Contract-first API Testing with Quarkus".
-The repository has one root POM for ease of use in this demo setup.
-The top level modules within the root POM represent projects that in a real situation would be separate repositories.
+This repository contains the slides and demo project for my talk "Contract-first API Testing with Quarkus".
 
-## Demo use case
+## License
+
+- The **slides** (`slides/` directory) are licensed under **[CC BY 4.0](LICENSE.md)**.
+- The **demo project** (`demo-project/` directory) is licensed under the **[MIT License](demo-project/LICENSE.md)**.
+- **Exceptions**:
+    - All images inside `slides/assets/restricted/` **are NOT covered** by the CC license.
+    - These images **cannot be reused, modified, or distributed** without explicit permission.
+
+## Slides
+
+he slides are built with [Reveal.js](https://revealjs.com/) and can be found in the [slides/](slides) directory.
+
+## Demo project
 
 This project (partially) represents the demo use case of an online boardgame website.
 It covers 3 components of this hypothetical website:
@@ -13,7 +23,8 @@ It covers 3 components of this hypothetical website:
 * Player Profile Service. A small dedicated microservice that provides and maintains player profiles.
 * The Player Profile API. The main API exposed by the Player Profile Service.
 
-## Modules
+The repository has one root POM for ease of use in this demo setup.
+The top level modules within the root POM represent projects that in a real situation would be separate repositories.
 
 ### Player Profile API
 

@@ -1,0 +1,35 @@
+@font-face {
+    font-family: 'TilburgsAns';
+    src: url('./TilburgsAns-Regular.eot');
+    src: url('./TilburgsAns-Regular.eot?#iefix') format('embedded-opentype'),
+         url('./TilburgsAns-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TilburgsAns';
+    src: url('./TilburgsAns-Light.eot');
+    src: url('./TilburgsAns-Light.eot?#iefix') format('embedded-opentype'),
+         url('./TilburgsAns-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TilburgsAns';
+    src: url('./TilburgsAns-Bold.eot');
+    src: url('./TilburgsAns-Bold.eot?#iefix') format('embedded-opentype'),
+         url('./TilburgsAns-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TilburgsAns';
+    src: url('./TilburgsAns-Black.eot');
+    src: url('./TilburgsAns-Black.eot?#iefix') format('embedded-opentype'),
+         url('./TilburgsAns-Black.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+}

@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Contract-first API Testing with Quarkus</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/conference-dark.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/darcula-adjusted.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<!-- title slide -->
+				<section data-transition="none">
+					<div class="centered-content">
+						<h1 class="title">Contract-first API Testing with Quarkus</h1>
+						<h2>Jaap Coomans</h2>
+					</div>
+					<p style="position: absolute; left: 30px; bottom: 10px;">
+						<img src="dist/images/bluesky-logo.png" style="height: 50px; display: inline; vertical-align: middle; padding-right: 20px" alt="BlueSky Logo"/>
+						@jaapcoomans.nl
+					</p>
+					<div style="position: absolute; bottom: 30px; right: 30px;">
+						<img src="dist/images/group9_common_top_png.png" alt="group9 logo" style="height: 200px;"/>
+					</div>
+				</section>
+				
+				<section data-transition="none" data-background="dist/images/backgrounds/problem-solving.png">
+					<div class="source">
+						Image generated with DALL-E
+					</div>
+				</section>
+
+				<!-- About me -->
+				<section data-transition="none">
+					<h1>about:me</h1>
+					<p class="centered-content" style="line-height: 2.2em; font-size: 1.2em;">
+						🏷️ Jaap Coomans<br/>
+						🏠 Tilburg (The Netherlands)<br/>
+						📅 Java since 2002<br/>
+						🧑‍💻 Software Architect at group9<br/>
+						🚩 Founder of BrabantJUG<br/>
+						👨‍👩‍👧‍👧 Husband, Father of 2 girls<br/>
+						🎲 Boardgame player<br/>
+						🍺 Craft beer sampler
+					</p>
+					<p style="position: absolute; left: 30px; bottom: 10px;">
+						<img src="dist/images/bluesky-logo.png" style="height: 50px; display: inline; vertical-align: middle; padding-right: 20px;" alt="BlueSky Logo"/>
+						@jaapcoomans.nl
+					</p>
+					<div style="position: absolute; right: 150px; top: 100px;">
+						<img src="dist/images/jaap-devoxx22-square.jpg" alt="Jaap Coomans" style="width: 400px; border-radius: 50%;"/>
+					</div>
+					<div style="position: absolute; bottom: 30px; right: 30px;">
+						<img src="dist/images/brabantjug-logo.png" alt="BrabantJUG logo" style="height: 200px; padding-right: 50px;"/>
+						<img src="dist/images/group9_common_top_png.png" alt="group9 logo" style="height: 200px;"/>
+					</div>
+				</section>
+
+				<section data-transition="none" data-background="dist/images/backgrounds/rewind.jpg">
+					<div class="cc-by-sa" >
+						Author: Chris Marquardt<br/>
+						https://www.flickr.com/photos/nubui/9550939064
+					</div>
+				</section>
+
+				<section data-transition="none">
+					<h1>Test Pyramid - Mike Cohn</h1>
+					<div class="centered-content">
+						<img src="dist/images/test-pyramid-mike-cohn-dark.svg" alt="Test Pyramid" style="height: 80vh;" class="theme-dark"/>
+						<img src="dist/images/test-pyramid-mike-cohn-light.svg" alt="Test Pyramid" style="height: 80vh;" class="theme-light"/>
+					</div>
+				</section>
+
+				<section data-transition="none">
+					<h1>Test Pyramid - The essence</h1>
+					<div class="centered-content">
+						<img src="dist/images/test-pyramid-essence-dark.svg" alt="Test Pyramid" style="height: 80vh;" class="theme-dark"/>
+						<img src="dist/images/test-pyramid-essence-light.svg" alt="Test Pyramid" style="height: 80vh;" class="theme-light"/>
+					</div>
+				</section>
+
+				<section data-transition="none" data-background="dist/images/backgrounds/contract.jpg">
+					<div class="source-dark" >
+						Author: Gerd Altmann<br/>
+						https://pixabay.com/photos/contract-consultation-pen-4313684/
+					</div>
+				</section>
+
+				<section data-transition="none">
+					<h1>API Terminology</h1>
+					<div class="centered-content">
+						<img src="dist/images/api-terminology-dark.svg" alt="API Terminology" style="height: 80vh;" class="theme-dark"/>
+						<img src="dist/images/api-terminology-light.svg" alt="API Terminology" style="height: 80vh;" class="theme-light"/>
+					</div>
+				</section>
+
+				<section data-transition="none">
+					<h1>De-facto API (no contract)</h1>
+					<div class="centered-content">
+						<img src="dist/images/de-facto-api-dark.svg" alt="De-facto API" style="height: 80vh;" class="theme-dark"/>
+						<img src="dist/images/de-facto-api-light.svg" alt="De-facto API" style="height: 80vh;" class="theme-light"/>
+					</div>
+				</section>
+
+				<section data-transition="none">
+					<div class="centered-content">
+						<img src="dist/images/contract-first-dark.png" alt="Provider First" class="theme-dark"/>
+						<img src="dist/images/contract-first-light.png" alt="Provider First" class="theme-light"/>
+					</div>
+				</section>
+				
+				<section>
+					Contract first vs consumer first
+				</section>
+				
+				<section>
+					Where does the dependency go?
+				</section>
+				
+				<section data-transition="none">
+					<h1>Our goals</h1>
+					<div class="centered-content">
+						<ul class="centered four-items">
+							<li class="fragment fade-in-then-semi-out">Contract-first</li>
+							<li class="fragment fade-in-then-semi-out">OpenAPI</li>
+							<li class="fragment fade-in-then-semi-out">Existing tooling</li>
+							<li class="fragment fade-in-then-semi-out">No dependency on live system</li>
+						</ul>
+					</div>
+				</section>
+
+				<section data-transition="none" data-background="dist/images/backgrounds/registry.jpg" data-background-opacity="0.7">
+					<h1 class="centered-content huge">Do we need a registry?</h1>
+					<div class="cc-by-sa" >
+						Author: Carolina Prysyazhnyuk<br/>
+						https://www.flickr.com/photos/129657698@N02/16159019626/
+					</div>
+				</section>
+				
+				<section data-transition="none">
+					<h1>Our registry</h1>
+					<div class="centered-content">
+						<img src="dist/images/Git-Logo-White.svg" alt="Maven" style="height: 15vh;" class="theme-dark"/>
+						<img src="dist/images/Git-Logo-Black.svg" alt="Maven" style="height: 15vh;" class="theme-light"/><br/>
+						<span style="font-size: 20vh;">+</span><br/>
+						<img src="dist/images/maven-logo-white-on-black.purevec.svg" alt="Maven" style="height: 15vh;" class="theme-dark"/>
+						<img src="dist/images/maven-logo-black-on-white.purevec.svg" alt="Maven" style="height: 15vh;" class="theme-light"/>
+					</div>
+				</section>
+				
+				<section data-transition="none">
+					<h1>Happy side effects</h1>
+					<div class="centered-content">
+						<ul class="centered two-items">
+							<li class="fragment fade-in-then-semi-out">Decentral</li>
+							<li class="fragment fade-in-then-semi-out">API Lifecycle</li>
+							<li class="fragment fade-in-then-semi-out">Dependency management</li>
+						</ul>
+					</div>
+				</section>
+
+				<section data-transition="none">
+					<h1>Java-based Testing</h1>
+					<div class="centered-content">
+						<img src="dist/images/java-based-testing-dark.svg" alt="Java-based Testing" style="height: 80vh;" class="theme-dark"/>
+						<img src="dist/images/java-based-testing-light.svg" alt="Java-based Testing" style="height: 80vh;" class="theme-light"/>
+					</div>
+				</section>
+
+				<section data-transition="none">
+					<h1>Java-based Testing</h1>
+					<div class="centered-content">
+						<img src="dist/images/java-based-testing2-dark.svg" alt="Java-based Testing" style="height: 80vh;" class="theme-dark"/>
+						<img src="dist/images/java-based-testing2-light.svg" alt="Java-based Testing" style="height: 80vh;" class="theme-light"/>
+					</div>
+				</section>
+				
+				<section data-transition="none">
+					<h1>REST-based Testing</h1>
+					<div class="centered-content">
+						<img src="dist/images/rest-based-testing-dark.svg" alt="REST-based Testing" style="height: 80vh;" class="theme-dark"/>
+						<img src="dist/images/rest-based-testing-light.svg" alt="REST-based Testing" style="height: 80vh;" class="theme-light"/>
+					</div>
+				</section>
+				
+				<section data-transition="none">
+					<h1>@QuarkusTest vs @SpringBootTest</h1>
+					<table class="centered-content">
+						<thead>
+							<tr>
+								<th>@QuarkusTest</th>
+								<th>@SpringBootTest</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						<tr>
+							<td>One</td>
+							<td>Two</td>
+						</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<section data-transition="none">
+					<h1>Onion Architecture</h1>
+					<img src="dist/images/onion-architecture.svg" alt="Onion Architecture" style="height: 80vh;"/>
+				</section>
+				
+				<section>
+					Java-based testing vs JSON-based testing
+				</section>
+				
+				<section>
+					Anecdote: Team KFP
+				</section>
+				
+				<section>
+					Lessons learned
+					- API design is important
+				</section>
+				
+				<!-- test slide -->
+				<section>
+					<h1>Just a slide</h1>
+					<div class="centered-content">
+						<ul class="centered five-items">
+							<li class="fragment fade-in-then-semi-out">one</li>
+							<li class="fragment fade-in-then-semi-out">two</li>
+						</ul>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/menu/menu.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				width: '100%',
+				height: '100%',
+				center: false,
+				backgroundTransition: 'none',
+
+				controls: false,
+				progress: false,
+				
+				menu: {
+					side: `left`,
+					openButton: false,
+					themes: [
+						{ name: 'Dark', theme: 'dist/theme/conference-dark.css' },
+						{ name: 'Light', theme: 'dist/theme/conference-light.css' }
+					],
+					themesPath: 'dist/theme/'
+				},
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMenu ]
+			});
+
+			document.addEventListener("DOMContentLoaded", function () {
+				function getActiveTheme() {
+					const themeLink = document.querySelector('link#theme'); // Default theme link
+					if (themeLink) {
+						return themeLink.getAttribute('href').split('/').pop().replace('.css', ''); // Extract theme name
+					}
+					return null;
+				}
+
+				function updateImages() {
+					const theme = getActiveTheme();
+					const isDarkMode = theme === "conference-dark"; // Add more themes if needed
+
+					document.querySelectorAll(".theme-light").forEach(img => img.style.display = isDarkMode ? "none" : "inline");
+					document.querySelectorAll(".theme-dark").forEach(img => img.style.display = isDarkMode ? "inline" : "none");
+				}
+
+				// Observe changes in the <head> (theme changes)
+				const observer = new MutationObserver(updateImages);
+				observer.observe(document.head, { childList: true, subtree: true });
+
+				// Initial check on page load
+				updateImages();
+			});
+		</script>
+	</body>
+</html>
