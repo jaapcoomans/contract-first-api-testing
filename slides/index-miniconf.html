@@ -33,7 +33,7 @@
                 </section>
 
                 <section data-transition="none" data-background="dist/images/backgrounds/tangled-cables.jpg">
-                    <div class="cc-by-sa" >
+                    <div class="cc-by-sa">
                         Author: Maja Kuzmanovic<br/>
                         https://www.flickr.com/photos/deziluzija/29957944892
                     </div>
@@ -96,10 +96,10 @@
                         <img src="dist/images/test-pyramid-essence-light.svg" alt="Test Pyramid" style="height: 80vh;" class="theme-light"/>
                     </div>
                 </section>
-                
+
                 <section data-transition="none" data-background="dist/images/backgrounds/divers-descending.jpg">
                     <h1 class="huge centered-content">How low<br/>can we go?</h1>
-                    <div class="cc-by" >
+                    <div class="cc-by">
                         Author: Paul Asman / Jill Lenoble<br/>
                         https://www.flickr.com/photos/pauljill/3476933358/
                     </div>
@@ -108,11 +108,11 @@
                 <section data-transition="none">
                     <h1>Contract-first</h1>
                     <div class="centered-content">
-                        <img src="dist/images/contract-first-dark.svg" alt="Contract First" style="height: 80vh;"  class="theme-dark"/>
-                        <img src="dist/images/contract-first-light.svg" alt="Contract First" style="height: 80vh;"  class="theme-light"/>
+                        <img src="dist/images/contract-first-dark.svg" alt="Contract First" style="height: 80vh;" class="theme-dark"/>
+                        <img src="dist/images/contract-first-light.svg" alt="Contract First" style="height: 80vh;" class="theme-light"/>
                     </div>
                 </section>
-                
+
                 <section data-transition="none">
                     <h1>Our goals</h1>
                     <div class="centered-content">
@@ -127,12 +127,12 @@
 
                 <section data-transition="none" data-background="dist/images/backgrounds/registry.jpg" data-background-opacity="0.7">
                     <h1 class="centered-content huge">Do we need a registry?</h1>
-                    <div class="cc-by-sa" >
+                    <div class="cc-by-sa">
                         Author: Carolina Prysyazhnyuk<br/>
                         https://www.flickr.com/photos/129657698@N02/16159019626/
                     </div>
                 </section>
-                
+
                 <section data-transition="none">
                     <h1>Our registry</h1>
                     <div class="centered-content">
@@ -143,7 +143,7 @@
                         <img src="dist/images/restricted/maven-logo-black-on-white.purevec.svg" alt="Maven" style="height: 15vh;" class="theme-light"/>
                     </div>
                 </section>
-                
+
                 <section data-transition="none">
                     <h1>OpenAPI Generator</h1>
                     <div class="centered-content">
@@ -152,7 +152,7 @@
                         <img src="dist/images/restricted/openapi-generator-logo.png" style="height: 40vh;" alt="OpenAPI Generator"/>
                     </div>
                 </section>
-                
+
                 <section data-transition="none">
                     <h1>Happy side effects</h1>
                     <div class="centered-content">
@@ -179,7 +179,7 @@
                         <img src="dist/images/java-based-testing2-light.svg" alt="Java-based Testing" style="height: 80vh;" class="theme-light"/>
                     </div>
                 </section>
-                
+
                 <section data-transition="none">
                     <h1>REST-based Testing</h1>
                     <div class="centered-content">
@@ -187,7 +187,7 @@
                         <img src="dist/images/rest-based-testing-light.svg" alt="REST-based Testing" style="height: 80vh;" class="theme-light"/>
                     </div>
                 </section>
-                
+
                 <section data-transition="none">
                     <h1>Example of a provider test</h1>
                     <div class="centered-content">
@@ -268,7 +268,7 @@
                         </pre>
                     </div>
                 </section>
-                
+
                 <section data-transition="none">
                     <h1 class="huge" style="margin-top: 10vh;">Thank you!</h1>
                     <div style="position: absolute; bottom: 3vw; left: 3vw; text-align: left;">
@@ -313,19 +313,19 @@
 
                 controls: false,
                 progress: false,
-                
+
                 menu: {
                     side: `left`,
                     openButton: false,
                     themes: [
-                        { name: 'Dark', theme: 'dist/theme/conference-dark.css' },
-                        { name: 'Light', theme: 'dist/theme/conference-light.css' }
+                        {name: 'Dark', theme: 'dist/theme/conference-dark.css'},
+                        {name: 'Light', theme: 'dist/theme/conference-light.css'}
                     ],
                     themesPath: 'dist/theme/'
                 },
 
                 // Learn about plugins: https://revealjs.com/plugins/
-                plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMenu ]
+                plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMenu]
             });
 
             document.addEventListener("DOMContentLoaded", function () {
@@ -347,7 +347,7 @@
 
                 // Observe changes in the <head> (theme changes)
                 const observer = new MutationObserver(updateImages);
-                observer.observe(document.head, { childList: true, subtree: true });
+                observer.observe(document.head, {childList: true, subtree: true});
 
                 // Initial check on page load
                 updateImages();
