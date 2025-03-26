@@ -41,7 +41,10 @@ public class OpenApiContract {
         var operation = getOperation(operationId);
         var requestBody = getRequestBody(operation);
         var schema = requestBody.get("schema");
-        return schema.toString();
+
+        var resolved = resolveRefs(schema);
+        
+        return resolved.toString();
     }
 
     private JsonNode getRequestBody(JsonNode operation) {
