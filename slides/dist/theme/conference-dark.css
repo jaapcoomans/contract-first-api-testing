@@ -535,5 +535,7 @@ pre code.large-code-sample {
   line-height: 1.2em;
 }
 
-
-
+.footnote {
+  font-size: smaller;
+  color: var(--r-heading-color);
+}

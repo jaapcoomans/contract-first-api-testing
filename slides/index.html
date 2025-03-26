@@ -175,6 +175,122 @@
                 </section>
 
                 <section data-transition="none">
+                    <h1>Example API Endpoint</h1>
+                    <div class="centered-content">
+                    <pre style="width: 50%;">
+                        <code class="hljs language-json" data-trim data-line-numbers data-ln-start-from="8">
+                            "/hello/{name}": {  
+                              "get": {
+                                "operationId": "sayHello",
+                                "parameters": [
+                                  {
+                                    "name": "name",
+                                    "in": "path",
+                                    "required": true,
+                                    "schema": {
+                                      "type": "string"
+                                    }
+                                  }
+                                ],
+                                "responses": {
+                                  "200": {
+                                    "description": "Hello response message",
+                                    "content": {
+                                      "application/json": {
+                                        "schema": {
+                                          "title": "HelloResponse",
+                                          "type": "object",
+                                          "properties": {
+                                            "message": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                        </code>
+                    </pre>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h1>Generated interface code</h1>
+                    <div class="centered-content">
+                        <pre>
+                            <code class="hljs language-java large-code-sample" data-trim data-line-numbers>
+                                package nl.jaapcoomans.demo.api;
+    
+                                import nl.jaapcoomans.demo.api.model.HelloResponse;
+                                import jakarta.ws.rs.*;
+                                
+                                @Path("/hello/{name}")
+                                public interface HelloApi {
+                                
+                                    @GET
+                                    @Produces({ "application/json" })
+                                    HelloResponse sayHello(@PathParam("name") String name);
+                                }
+                            </code>
+                        </pre>
+                        <p class="footnote">NOTE: Clutter stripped for display purposes</p>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h1>Generated model code</h1>
+                    <div class="centered-content">
+                        <pre>
+                            <code class="hljs language-java" data-trim data-line-numbers data-ln-start-from="7">
+                                @JsonTypeName("HelloResponse")
+                                public class HelloResponse   {
+                                  private String message;
+                                
+                                  public HelloResponse() {
+                                  }
+                                
+                                  public HelloResponse message(String message) {
+                                    this.message = message;
+                                    return this;
+                                  }
+                                  
+                                  @JsonProperty("message")
+                                  public String getMessage() {
+                                    return message;
+                                  }
+                                
+                                  @JsonProperty("message")
+                                  public void setMessage(String message) {
+                                    this.message = message;
+                                  }
+                                
+                                  @Override
+                                  public boolean equals(Object o) {
+                                    if (this == o) {
+                                      return true;
+                                    }
+                                    if (o == null || getClass() != o.getClass()) {
+                                      return false;
+                                    }
+                                    HelloResponse helloResponse = (HelloResponse) o;
+                                    return Objects.equals(this.message, helloResponse.message);
+                                  }
+                                
+                                  @Override
+                                  public int hashCode() {
+                                    return Objects.hash(message);
+                                  }
+                                }
+                            </code>
+                        </pre>
+                        <p class="footnote">NOTE: Clutter stripped for display purposes</p>
+                    </div>
+                </section>
+
+                <section data-transition="none">
                     <h1>Happy side effects</h1>
                     <div class="centered-content">
                         <ul class="centered two-items">
