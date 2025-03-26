@@ -5,9 +5,9 @@ This repository contains the slides and demo project for my talk "Contract-first
 ## License
 
 - The **slides** (`slides/` directory) are licensed under **[CC BY 4.0](LICENSE.md)**.
-- The **demo project** (`demo-project/` directory) is licensed under the **[MIT License](demo-project/LICENSE.md)**.
+- The **demo project** (root directory) is licensed under the **[MIT License](demo-project/LICENSE.md)**.
 - **Exceptions**:
-    - All images inside `slides/assets/restricted/` **are NOT covered** by the CC license.
+    - All images inside `slides/dist/images/restricted/` **are NOT covered** by the CC license.
     - These images **cannot be reused, modified, or distributed** without explicit permission.
 
 ## Slides
