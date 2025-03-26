@@ -370,40 +370,54 @@
                     <h1>Example of a consumer test</h1>
                     <div class="centered-content">
                         <pre>
-                            <code class="language-java hljs " data-trim data-line-numbers="|1|2,4|6,7|11-17|11-25|27,28|30-32">
+                            <code class="hljs language-java large-code-sample" data-trim data-line-numbers="|1|2,7|4,5|9,10|12-15">
                                 @QuarkusTest
                                 @ConnectWireMock
-                                public class PlayerProfileApiClientTest {
+                                public class PlayerProfileApiClientTest {   
+                                    private static final OpenApiContract apiContract = 
+                                            OpenApiContract.fromClasspath("openapi/player-profile-api.json");
+                                
                                     WireMock wireMock;
                                 
                                     @Inject
                                     PlayerProfileRestClient playerProfileRestClient;
                                 
                                     @Test
-                                    public void test() {
-                                        // Given
-                                        var responseBody = """
-                                                {
-                                                    "playerId": "123456",
-                                                    "name": "John Doe"
-                                                }
-                                                """;
-                                
-                                        wireMock.register(get(urlPathTemplate("/players/{playerId}"))
-                                                .withPathParam("playerId", equalTo("123456"))
-                                                .willReturn(aResponse()
-                                                        .withStatus(200)
-                                                        .withHeader("Content-Type", "application/json")
-                                                        .withBody(responseBody)
-                                                ));
-                                
-                                        // When
-                                        var player = playerProfileRestClient.getPlayerById("123456");
-                                
-                                        // Then
-                                        assertThat(player.getPlayerId()).isEqualTo("123456");
-                                        assertThat(player.getName()).isEqualTo("John Doe");
+                                    public void selectOpponent() {
+                                        // Test code goes here
                                     }
+                                }
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h1>Example of a consumer test</h1>
+                    <div class="centered-content">
+                        <pre>
+                            <code class="hljs language-java large-code-sample" data-trim data-line-numbers="|3-5|7-8|10-11|13-15|17-18|20-21" data-ln-start-from="12">
+                                @Test
+                                public void selectOpponent() {
+                                    // Given
+                                    var name = aPlayerName();
+                                    var playerId = aPlayerId(name);
+                            
+                                    wireMock.register(post(urlEqualTo("/players/select-opponent"))
+                                            .willReturn(okJson(validSelectOpponentResponse(playerId, name))));
+                            
+                                    // When
+                                    var response = playerProfileRestClient.selectOpponent("Catan", SkillLevel.BEGINNER);
+                            
+                                    // Then
+                                    assertThat(response.getPlayerId()).isEqualTo(playerId);
+                                    assertThat(response.getName()).isEqualTo(name);
+                            
+                                    var actualRequests = wireMock.find(postRequestedFor(urlEqualTo("/players/select-opponent")));
+                                    assertThat(actualRequests).hasSize(1);
+                            
+                                    var requestBody = actualRequests.getFirst().getBodyAsString();
+                                    apiContract.assertThat(requestBody).isValidRequestFor("selectOpponent");
                                 }
                             </code>
                         </pre>
